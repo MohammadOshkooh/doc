@@ -1,0 +1,21 @@
+git diff HEAD ->now with last commit
+
+git diff --staged -> stage with last commit
+
+git reset <filename> -> exit add -A
+
+git checkout -- <filename> -> got to last commit
+
+git branch <branch_name> -> create branch
+
+git checkout <branch_name> -> change branch
+
+git merge <branch_name>
+
+git branch -d <br_name> -> remove br_name branch
+
+git tag -a <tag_name> -m'<commit>' -> create a tag 
+
+git checkout <tag_name>
+
+git blame <file_name> -L <line_nubmer> -> who write this line?

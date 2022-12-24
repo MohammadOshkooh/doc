@@ -1,0 +1,231 @@
+psql -l
+
+psql > go to psql
+
+\conninfo > connection info
+
+\q -> exit
+
+psql -d db_name > connect to 'db_name'
+
+psql -U postgres -d db
+
+sudo -U postgres psql
+
+--------------------------------------------------
+#db
+
+\l -> db list
+
+CREATE DATABASE mydb;
+
+DROP DATABASE mydb;
+
+CREATE DATABASE db TEMPLATE template0;
+
+\c <db_name> -> change db
+
+
+--------------------------------------------------
+#user
+
+\du -> user list
+
+CREATE ROLE rolename WITH <option> ;
+
+\password <user>
+
+group:
+CREATE ROLE <role_name> NOLOGIN;
+CREATE ROLE <user_name> IN ROLE <role_name>;
+
+ALTER GROUP devops ADD USER jack; -> ویرایش کردن
+
+--------------------------------------------------
+#table : logged _ unlogged  _ temporary
+
+
+\d -> table list
+
+
+CREATE TABLE my_table (
+   id INTEGER PRIMARY KEY,
+   name VARCHAR(32)
+);
+   
+
+CREATE UNLLOGED TABLE <table_name>(...);
+
+CREATE TEMPORARY TABLE <table_name>(...);
+
+   
+CREATE TABLE phone_book (
+   id SERIAL PRIMARY KEY, 
+   first_name VARCHAR(32) NOT NULL,
+   last_name VARCHAR(32) NOT NULL,
+   phone_number CHAR(12) NOT NULL UNIQUE
+);
+
+INSERT INTO phone_book VALUES (3, 'ali' , 'alizadeh' ,'989052806899');
+
+
+SELECT * FROM phone_book; -> display table
+
+GRANT <SELECT or ...> ON <table_name> TO <user_name> -> دسترسی دادن
+
+REVOKE SELECT ON <table_name> TO <user_name> 
+
+DELETE FROM phone_book; -> delete all data form table
+
+
+INSERT INTO phone_book (first_name, last_name, phone_number) VALUES ( 'ali' , 'alizadeh' ,'989052806899');
+
+
+SELECT first_name AS "First name", last_name AS "Last name"  FROM  phone_book;
+
+
+---
+EXPLAIN ANALYZE 
+
+
+SELECT * FROM phone_book WHERE id>2;
+
+
+SELECT * FROM phone_book LIMIT 10;
+
+
+SELECT * FROM phone_book OFFSET 5;
+
+
+
+DELETE FROM phone_book WHERE id=3;
+
+
+UPDATE phone_book first_name='new-name' WHERE id=1;
+
+
+---------------------------------------------------
+fanction
+
+CREATE FUNCTION  hello()
+RETURNS text
+LANGUAGE sql
+AS $$
+   SELECT "hello world!";
+$$;
+
+
+\df -> show functions
+
+SELECT <func_name>(); -> exec a function
+
+CREATE OR REPLACE FUNCTION hello()...; -> update a function (args should const)
+
+
+CREATE OR REPLACE FUNCTION users()
+RETURNS SETOF users
+LANGUAGE sql
+AS $$
+   SELECT * FROM users;
+$$;
+
+
+CREATE OR REPLACE FUNCTION add(a INTEGER, b INTEGER)
+RETURNS INTEGERto_representation
+LANGUAGE plpgsql
+AS $$
+   BEGIN
+       RETURN a+b;
+   END;
+$$;
+
+
+CREATE OR REPLACE FUNCTION add(a integer, b integer)
+RETURNS integer
+LANGUAGE plpgsql
+AS $$
+DECLARE 
+   res integer;
+BEGIN 
+   res := a + b;
+   RETURN res;
+END;
+$$;
+
+
+-------------------------------------------
+#RULE
+
+CREATE RULE add_user
+AS ON INSERT TO users 
+WHERE NEW.username ilike 'a%'
+DO ALSO INSERT INTO admins_table(id, username) VALUES (NEW.id , NEW.username);
+
+\d <table_name> -> show rule
+
+SELECT * FROM pg_rules;
+
+
+-------------------------------
+#triggers
+
+CREATE OR REPLACE FUNCTION a_tags()
+RETURNS trigger 
+LANGUAGE plpgsql 
+AS $$
+BEGIN 
+   IF lower(substring(NEW.username FROM 1 FOR 1)) = 'a' THEN
+   INSERT INTO admins_table(id, username) VALUES (NEW.id, NEW.username);
+   END IF;
+   RETURN NEW;
+END;
+$$;
+
+
+CREATE OR REPLACE TRIGGER add_a_user BEFORE INSERT ON users FOR EACH ROW 
+EXECUTE FUNCTION a_tags();
+
+
+-------------------------------
+#transaction
+
+SELECT xmin, * FROM users;
+
+
+BEGIN; .......; COMMIT; 
+
+BEGIN; ...; ROLLBACK;   -> cancel transaction
+
+
+-------------------------------
+#savepoint
+
+BEGIN;
+INSERT INTO users(id, username) VALUES (1, 'ali');
+
+SAVEPOINT one;
+
+INSERT INTO users(id, username) VALUES (2, 'reza');
+ROLLBACK TO SAVEPOINT one
+
+INSERT INTO users(id, username) VALUES (3, 'mohammad');
+COMMIT; -> 1&2 saved!
+
+
+----------------------------------
+#index
+
+CREATE INDEX <index_name> ON <table_name> (<row_name>);
+
+
+---------------------------------
+
+
+
+
+
+
+
+
+
+

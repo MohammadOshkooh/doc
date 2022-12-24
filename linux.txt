@@ -1,0 +1,70 @@
+pwd , uname , man <command> , --help <command> 
+
+cat , head , tail , less
+
+printenv <var_name>
+
+export <var_name>='<var_value>'
+
+echo $<var_name> , unset <var_name> 
+
+grep <word> <file_name> -> search
+
+rm <dir_name> 2> <output_file>
+
+??????    rt " "  "," < <file_name> : replace
+
+ps -ef -> show proccess
+
+top -> show proccess
+
+uptime , free , date , wget <URL> , passwd
+
+sleep 10 & -> sleep but to background
+
+jobs -> show background tasks
+
+bg %<id> -> run a task in background
+
+fg %<id>
+
+kill %<id> ->runing a proccess (by defult: stop a task)
+
+cmatrix , sl
+
+nohup sleep 100 -> run a task , even if you're logged out, and then log back in
+
+nice -n 12 sleep 4000 &
+
+renice <new_nice_nimber> -p <PID>
+
+stat <file_name>, cp , mv
+
+alias c=clear
+
+find <dir_address> -name <file_name>
+
+sudo chown <new_owner>:<new_group> <file_name> -> change owner & group
+
+sudo chmod g+w <file_name> -> change file mode bits = change permisson  (u=owner g=group o=other a=all / r w x)
+
+in <first_file_name> <secound_file_name> -> linking file(hard link)
+
+unlink <file_name>
+
+in -s <first_file_name> <sec_file_name> -> soft link == symbolic link
+
+readlink <file_name>
+
+systemctl start/status/disable/anable/restart/stop <app_name>
+
+lsdev , lsusb, lsblk, lsmod , modinfo
+
+modprobe
+
+mount 
+
+useradd -m <username> 
+
+userdel <username>
+

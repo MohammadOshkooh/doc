@@ -1,0 +1,21 @@
+program.cs -> تنظیمات زیر ساختی پروژه
+
+dotnet ef migration add <migration_name>
+
+dotnet ef database update
+
+
+
+
+
+
+
+
+
+
+
+
+--------------
+مدال ها و رابطه ها ـ‌ وان تو وان و ...
+
+واژه virtuall

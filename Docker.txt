@@ -1,0 +1,39 @@
+docker run --name <container_name> <image_name> 
+
+docker rm <container_name>
+
+docker rmi <image_name>
+
+docker run -it <image_name> : ران کن و برو داخلش
+
+-d : run in background
+
+docker exec  <container_name>  : Run a command in a running container
+
+docker build . : Dockerfile to image
+
+docker run -d -p <computer_port>:<container_port > redis 
+
+docker save -o <file_name>.tar <container_name>:<version>
+
+docker load -i <file_name>
+
+docker commit <container_name> <new_name>:<version>
+
+docker diff <container_name>
+
+docker run ... -v v1:/home ... -> هر چی تو هوم کانتینر هست بردار ببر بریز تو والیممون
+
+docker volume ls
+
+docker network ctrate <network_name>
+
+docker network connet <network_name> <container_name>
+
+docker-compose up
+
+docker images --filter "dangling=true"
+
+docker run -tid --volume-from <volume> <image_name> : sharing volumes
+
+sh -c "... && ..."
