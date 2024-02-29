@@ -19,3 +19,21 @@ git tag -a <tag_name> -m'<commit>' -> create a tag
 git checkout <tag_name>
 
 git blame <file_name> -L <line_nubmer> -> who write this line?
+
+git revert <conmmit_id> => حذف تاثیرات یک کاممیت
+اگه واسه کاممیت های میانی استفاده کنید ممکنه به تداخل بخورید
+git revert --abort
+میگه بیخیال revert شو
+
+
+git reset --soft: فقط کاممیت هارو از هیستوری پاک میکنه
+git reset --mixed: میاد کاممیت ها و استیج هارو پاک میکنه
+git reset --hard: علاوه بر موارد بالا فایل هارو هم حذف میکنه
+
+git stash: تغییرات رو یه جایی ذخیره میکنید بدون اینکه کاممیت کنید. و بعد تغیییرات شما ریست میشود و بعدا دوباره میتونین برگردونید اونها رو
+
+git stash list
+git stash apply <id>
+git stash clear
+git stash save "..."
+
